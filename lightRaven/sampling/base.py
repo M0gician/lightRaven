@@ -8,15 +8,13 @@ class SamplingBase:
     """
     The base class of a sampling method
     """
-    def __init__(self, dataset: List[np.ndarray], gamma=0.9, n_proc=8):
+    def __init__(self, dataset: List[Tuple[np.ndarray]], gamma=0.9, n_proc=8):
         """
         Parameters
         ----------
         dataset : List[Tuple[np.ndarray]]
             A list of trajectories sampled by the behavioral policy.
             Contains (s, a, r, pi) for each timestamp
-        behv_policy : PolicyBase
-            The behavioral policy that generates the dataset.
         gamma : float
             The discount factor. Mostly predefined by the MDP.
         n_proc : int
@@ -48,11 +46,13 @@ class SamplingBase:
             The evaluation policy object.
         """
         assert isinstance(eval_policy, PolicyBase)
-        self.eval_policy: PolicyBase = eval_policy
+        self.eval_policy = eval_policy
         if isinstance(self.eval_policy, TabularPolicy):
             self.eval_policy_pi = self.eval_policy.pi_all()
         elif isinstance(self.eval_policy, FAPolicy):
             self.eval_policy_pi = self.eval_policy.pi_all(self.dataset_s, self.dataset_a)
+        else:
+            raise ValueError
 
     def get_episodic_est(self, idx=None) -> float:
         raise NotImplementedError

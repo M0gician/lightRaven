@@ -1,5 +1,5 @@
 import numpy as np
-from typing import List
+from typing import List, Tuple
 from numba import njit, prange
 from numba.typed import List as nblist
 from lightRaven.sampling import IS
@@ -11,11 +11,11 @@ class PDIS(IS):
     """
     The implementation of Importance Sampling Estimator
     """
-    def __init__(self, dataset: List[np.ndarray], gamma=0.9, n_proc=8):
+    def __init__(self, dataset: List[Tuple[np.ndarray]], gamma=0.9, n_proc=8):
         """
         Parameters
         ----------
-        dataset : List[np.ndarray]
+        dataset : List[Tuple[np.ndarray]]
             A list of trajectories sampled by the behavioral policy.
             Contains (s, a, r, s') for each timestamp
         behv_policy : policy
