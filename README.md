@@ -1,8 +1,11 @@
 # lightRaven -- Offline RL with Maximum Speed
+[![PyPI version lightRaven](https://badge.fury.io/py/lightRaven.svg)](https://pypi.org/project/lightRaven/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/lightRaven.svg)](https://pypi.org/project/lightRaven/)
+![Python package](https://github.com/M0gician/lightRaven/workflows/Python%20package/badge.svg)
 
 This library provides convenient tools for people to create their own seldonian algorithms with optimum performance. A detailed example is also included in `dynamic_training.ipynb`. Performance test is in `ci_performance.ipynb`.
 
-## Dependencies
+## Dependencies  [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 - `gym==0.17.3`
 - `numpy==1.19.1`
 - `scipy==1.5.2`
