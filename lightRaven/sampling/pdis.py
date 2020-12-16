@@ -1,7 +1,7 @@
 import numpy as np
 from typing import List, Tuple
 from numba import njit, prange
-from numba.typed import List as nblist
+from numba.typed import List as nbList
 from lightRaven.sampling import IS
 from lightRaven.policy import PolicyBase, FAPolicy, TabularPolicy
 from lightRaven.sampling import SamplingBase
@@ -11,26 +11,22 @@ class PDIS(IS):
     """
     The implementation of Importance Sampling Estimator
     """
-    def __init__(self, dataset: List[Tuple[np.ndarray]], gamma=0.9, n_proc=8):
+    def __init__(self, dataset: List[Tuple[np.ndarray]], gamma=0.9, ):
         """
         Parameters
         ----------
         dataset : List[Tuple[np.ndarray]]
             A list of trajectories sampled by the behavioral policy.
-            Contains (s, a, r, s') for each timestamp
-        behv_policy : policy
-            The behavioral policy that generates the dataset.
+            Contains (s, a, r, pi_b) for each timestamp
         gamma : float
             The discount factor. Mostly predefined by the MDP.
-        n_proc : int
-            The total number of processes that can be spawned for parallelization
         """
 
-        super(PDIS, self).__init__(dataset, gamma, n_proc)
+        super(PDIS, self).__init__(dataset, gamma)
 
     @staticmethod
     @njit(parallel=True)
-    def _calc_tb_est(dataset_s: nblist, dataset_a: nblist, dataset_r: nblist, dataset_pi: nblist,
+    def _calc_tb_est(dataset_s: nbList, dataset_a: nbList, dataset_r: nbList, dataset_pi: nbList,
                      n_data: int, pi_e_full: np.ndarray) -> np.ndarray:
         est = np.empty(n_data)
 
@@ -51,8 +47,8 @@ class PDIS(IS):
 
     @staticmethod
     @njit(parallel=True)
-    def _calc_fa_est(dataset_s: nblist, dataset_r: nblist, dataset_pi: nblist,
-                     n_data: int, pi_e_full: nblist) -> np.ndarray:
+    def _calc_fa_est(dataset_s: nbList, dataset_r: nbList, dataset_pi: nbList,
+                     n_data: int, pi_e_full: nbList) -> np.ndarray:
         est = np.empty(n_data)
 
         for i in prange(n_data):
@@ -118,8 +114,8 @@ if __name__ == "__main__":
     theta = np.ones(obs_shape * act_shape)
     policy = FAPolicy(obs_shape, act_shape, theta)
 
-    sampler_test_is = IS(dataset_test, gamma=1, n_proc=n_proc)
-    sampler_test_pdis = PDIS(dataset_test, gamma=1, n_proc=n_proc)
+    sampler_test_is = IS(dataset_test, gamma=1)
+    sampler_test_pdis = PDIS(dataset_test, gamma=1)
 
     sampler_test_is.load_eval_policy(policy)
     sampler_test_pdis.load_eval_policy(policy)

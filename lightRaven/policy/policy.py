@@ -2,7 +2,7 @@ from abc import ABC
 import numpy as np
 from typing import Union, Optional
 from numba import njit, prange
-from numba.typed import List as nblist
+from numba.typed import List as nbList
 
 
 class PolicyBase(ABC):
@@ -69,7 +69,7 @@ class PolicyBase(ABC):
         """
         raise NotImplementedError
 
-    def pi_all(self, observations: Optional[nblist], actions: Optional[nblist]) -> np.ndarray:
+    def pi_all(self, observations: Optional[nbList], actions: Optional[nbList]) -> np.ndarray:
         """ Get the probability (density) of all actions `a` at state `s` when using current policy
         """
         raise ValueError
@@ -105,7 +105,7 @@ class TabularPolicy(PolicyBase):
             The observation space size of the environment
         act_shape : int
             The observation space size of the environment
-        theta : Optional[np.ndarray]
+        theta : np.ndarray
             The weight matrix for generating actions
         policy_type : Optional[str]
             The type of the policy ('Discrete' or 'Continuous')
@@ -184,7 +184,7 @@ class FAPolicy(PolicyBase):
     # @njit(parallel=True, fastmath=True)
     @staticmethod
     @njit(fastmath=True)
-    def _pi_all(theta: np.ndarray, observations: nblist, actions: nblist, n_data: int) -> nblist:
+    def _pi_all(theta: np.ndarray, observations: nbList, actions: nbList, n_data: int) -> nbList:
         """ Get the probability (density) of all actions `a` at state `s` when using current policy
 
         Parameters
@@ -192,7 +192,7 @@ class FAPolicy(PolicyBase):
         theta : np.ndarray
             The weight matrix for generating actions
         """
-        pi_e = nblist()
+        pi_e = nbList()
         for i in range(n_data):
             y = np.exp(observations[i] @ theta)
             prob = y / np.sum(y, axis=1).reshape(-1, 1)
@@ -234,7 +234,7 @@ class FAPolicy(PolicyBase):
         act_prob = np.exp(y) / np.exp(y).sum()
         return act_prob[action]
 
-    def pi_all(self, observations: nblist, actions: nblist) -> nblist:
+    def pi_all(self, observations: nbList, actions: nbList) -> nbList:
         """ Get the probability (density) of all actions `a` at state `s` when using current policy
         """
         return self._pi_all(self.W, observations, actions, len(observations))

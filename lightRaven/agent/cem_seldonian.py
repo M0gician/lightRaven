@@ -1,5 +1,4 @@
 import numpy as np
-from multiprocessing import Pool
 from typing import List, Callable
 
 from lightRaven.sampling import SamplingBase

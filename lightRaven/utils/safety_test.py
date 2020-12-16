@@ -1,9 +1,6 @@
 import gym
 import numpy as np
-from typing import List, Union, Tuple, Callable, DefaultDict
-from functools import partial
-from multiprocessing import Pool
-from collections import defaultdict
+from typing import List, Union, Tuple, Callable
 
 from lightRaven.policy import PolicyBase, FAPolicy, TabularPolicy
 from lightRaven.sampling import SamplingBase

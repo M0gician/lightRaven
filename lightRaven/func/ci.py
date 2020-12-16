@@ -1,5 +1,5 @@
 import numpy as np
-from numba import jit, njit, prange
+from numba import njit, prange
 from scipy import stats, optimize
 
 
