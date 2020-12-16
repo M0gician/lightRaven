@@ -14,7 +14,7 @@ from setuptools import find_packages, setup, Command
 # Package meta-data.
 NAME = 'lightRaven'
 DESCRIPTION = 'Library for Fast Offline RL Analysis with Minimum Dependencies'
-URL = 'https://github.com/M0gician/RavenRL'
+URL = 'https://github.com/M0gician/lightRaven'
 EMAIL = 'tommyyang0524@gmail.com'
 AUTHOR = 'Tommy Yang (m0g1cian)'
 REQUIRES_PYTHON = '>=3.7.0'
@@ -22,7 +22,7 @@ VERSION = '0.1.0'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    'numpy', 'scipy', 'dask'
+    'numpy', 'scipy', 'numba', 'gym'
     # 'requests', 'maya', 'records',
 ]
 
@@ -122,8 +122,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        'Programming Language :: Python :: Implementation :: CPython'
     ],
     # $ setup.py publish support.
     cmdclass={
