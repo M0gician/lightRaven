@@ -28,7 +28,7 @@ REQUIRED = [
 
 # What packages are optional?
 EXTRAS = {
-    # 'fancy feature': ['django'],
+    'tbb'
 }
 
 # The rest you shouldn't have to touch too much :)
@@ -122,6 +122,7 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython'
     ],
     # $ setup.py publish support.

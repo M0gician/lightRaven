@@ -33,7 +33,17 @@ def test_mpeb_lb():
 def test_mpeb_ub():
     print("\nTesting MPeB upper bound...")
     assert abs(mpeb_ub(sample) - 10.942415) <= 1e-5
-    
+
+
+def test_anderson_lb():
+    print("\nTesting Anderson lower bound...")
+    assert abs(anderson_lb(sample) + 1.721742) <= 1e-5
+
+
+def test_anderson_ub():
+    print("\nTesting Anderson upper bound...")
+    assert abs(anderson_ub(sample) - 1.6668230) <= 1e-5
+
 
 def test_mcma_lb():
     print("\nTesting Monte Carlo m_alpha lower bound...")

@@ -30,6 +30,7 @@ class CWPDIS(SamplingBase):
     # @staticmethod
     # @njit(parallel=True, fastmath=True)
     @staticmethod
+    @njit(parallel=True, fastmath=True)
     def _calc_tb_est(dataset_s: nbList, dataset_a: nbList, dataset_r: nbList, dataset_pi: nbList,
                      n_data: int, n_batch: int, max_l: int, pi_e_full: np.ndarray) -> np.ndarray:
         est = np.zeros(n_batch)
@@ -58,7 +59,7 @@ class CWPDIS(SamplingBase):
         return est
 
     @staticmethod
-    @njit(parallel=True)
+    @njit(parallel=True, fastmath=True)
     def _calc_fa_est(dataset_s: nbList, dataset_r: nbList, dataset_pi: nbList,
                      n_data: int, n_batch: int, max_l: int, pi_e_full: np.ndarray) -> np.ndarray:
         est = np.zeros(n_batch)
